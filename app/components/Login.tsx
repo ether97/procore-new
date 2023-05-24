@@ -1,0 +1,54 @@
+"use client";
+
+import { useState } from "react";
+
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
+import Input from "./Input";
+import Button from "./Button";
+
+const Register = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FieldValues>({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    setIsLoading(true);
+  };
+
+  return (
+    <div className="flex flex-col w-1/2 gap-5">
+      <Input
+        label="Email"
+        id="email"
+        required
+        type="text"
+        register={register}
+        errors={errors}
+        placeholder=" "
+      />
+
+      <Input
+        label="Password"
+        id="password"
+        required
+        type="password"
+        register={register}
+        errors={errors}
+        placeholder=" "
+      />
+      <Button label="Login" onClick={handleSubmit(onSubmit)} />
+    </div>
+  );
+};
+
+export default Register;

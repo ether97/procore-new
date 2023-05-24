@@ -1,7 +1,12 @@
-import Socials from "./components/Socials";
+import ClientOnly from "./components/ClientOnly";
+import LogInOrSignUp from "./components/LogInOrSignUp";
 
-export default function Home() {
-  return;
+const Home = () => {
+  return (
+    <ClientOnly>
+      <LogInOrSignUp />
+    </ClientOnly>
+  );
+};
 
-  <Socials />;
-}
+export default Home;

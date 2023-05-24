@@ -29,20 +29,15 @@ export const socials = [
 
 const Socials = () => {
   return (
-    <div className="h-full w-full flex flex-row items-center justify-center">
-      <div className="flex flex-row justify-center items-center gap-4 p-10 w-2/3 p-4">
-        <Register />
-        <div className="flex flex-col justify-center items-center gap-5 p-10 w-1/2">
-          {socials.map((social) => (
-            <Button
-              key={social.label}
-              label={social.label}
-              icon={social.icon}
-              onClick={() => signIn(`github`)}
-            />
-          ))}
-        </div>
-      </div>
+    <div className="flex flex-col justify-center items-center gap-5 p-10 w-1/2">
+      {socials.map((social) => (
+        <Button
+          key={social.label}
+          label={social.label}
+          icon={social.icon}
+          onClick={() => signIn(`github`)}
+        />
+      ))}
     </div>
   );
 };

@@ -8,6 +8,7 @@ import Socials from "./components/Socials";
 import Toast from "./components/Toast";
 import Register from "./components/Register";
 import Head from "next/head";
+import ClientOnly from "./components/ClientOnly";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,10 +33,13 @@ export default async function RootLayout({
         <link rel="shortcut icon" href="" />
       </Head>
       <body className={font.className}>
-        <Navbar currentUser={currentUser} />
-        <Socials />
-        <Toast />
-        {children}
+        <ClientOnly>
+          <Navbar currentUser={currentUser} />
+          <Toast />
+        </ClientOnly>
+        <div className="flex flex-row items-center justify-center h-full w-full ">
+          {children}
+        </div>
       </body>
     </html>
   );

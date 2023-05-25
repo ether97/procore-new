@@ -15,7 +15,7 @@ export const icons = [
 const DisplateSelection = () => {
   const modal = useModal();
   return (
-    <div className="w-full bg-green-600 shadow-md fixed mt-[75px] flex items-center justify-center p-4">
+    <div className="w-full bg-green-600 shadow-md fixed top-[75px] flex items-center justify-center p-4">
       <div className="max-w-[1000px] w-full flex items-center justify-between">
         {icons.map((icon) => (
           <Image

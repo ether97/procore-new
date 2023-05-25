@@ -68,13 +68,19 @@ model Account {
 model Displate {
   id                 String @db.ObjectId @id @default(auto()) @map("_id")
   userId             String @db.ObjectId
-  img                String
   finish             EFinish @default(MATTE)
   frame              EFrame @default(NONE)
   size               ESize @default(MEDIUM)
   price              Int? @default(44)
-  title              String
-  category           String
+  info               String @db.ObjectId
 
   user               User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model DisplateInfo {
+  id                 String @db.ObjectId @id @default(auto()) @map("_id")
+  title              String
+  category           String
+  img                String
+  
 }

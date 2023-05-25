@@ -47,7 +47,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
             <div className="relative" onClick={() => menu.onToggle()}>
               <Image
                 className="rounded-full cursor-pointer peer"
-                src={currentUser?.user.image}
+                src={currentUser.user.image}
                 alt="user avatar"
                 width="35"
                 height="35"

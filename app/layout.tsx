@@ -1,16 +1,12 @@
 import "./globals.css";
-import { Inter } from "next/font/google";
 import { Nunito } from "next/font/google";
 import getCurrentUser from "./actions/getCurrentUser";
 
 import Navbar from "./components/Navbar/Navbar";
-import Socials from "./components/Socials";
 import Toast from "./components/Toast";
-import Register from "./components/Register";
 import Head from "next/head";
 import ClientOnly from "./components/ClientOnly";
-
-const inter = Inter({ subsets: ["latin"] });
+import DisplateModal from "./components/DisplateModal";
 
 const font = Nunito({
   subsets: ["latin"],
@@ -36,6 +32,7 @@ export default async function RootLayout({
         <ClientOnly>
           <Navbar currentUser={currentUser} />
           <Toast />
+          <DisplateModal />
         </ClientOnly>
         <div className="flex flex-row items-center justify-center h-full w-full ">
           {children}

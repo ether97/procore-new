@@ -21,7 +21,7 @@ export const userMenuItems = [
 
 const UserMenu = () => {
   return (
-    <div className="absolute bg-black top-[59px] right-[0px] rounded-bottom-md ">
+    <div className="absolute bg-black top-[59px] z-100 right-[0px] rounded-bottom-md ">
       {userMenuItems.map((item, index) => {
         if (index === 0) {
           return (

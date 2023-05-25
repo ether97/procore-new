@@ -1,6 +1,25 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+enum EFinish {
+  MATTE
+  GLOSS
+}
+
+enum EFrame {
+  NONE
+  GRAPHITE
+  WHITE_WOOD
+  BLACK_WOOD
+  NATURAL_WOOD
+}
+
+enum ESize {
+  MEDIUM
+  LARGE
+  EXTRA_LARGE  
+}
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -9,6 +28,8 @@ datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
+
+
 
 model User {
   id              String @id @default(auto()) @map("_id") @db.ObjectId
@@ -22,6 +43,7 @@ model User {
   favoriteIds     String[] @db.ObjectId
 
   accounts        Account[]
+  displates       Displate[] 
 }
 
 model Account {
@@ -38,6 +60,21 @@ model Account {
   id_token           String?  @db.String
   session_state      String?
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user               User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+}
+
+
+model Displate {
+  id                 String @db.ObjectId @id @default(auto()) @map("_id")
+  userId             String @db.ObjectId
+  img                String
+  finish             EFinish @default(MATTE)
+  frame              EFrame @default(NONE)
+  size               ESize @default(MEDIUM)
+  price              Int? @default(44)
+  title              String
+  category           String
+
+  user               User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

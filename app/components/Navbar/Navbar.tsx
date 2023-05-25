@@ -7,6 +7,7 @@ import Button from "../Button";
 import { AiOutlineLogout } from "react-icons/ai";
 import { TfiAndroid } from "react-icons/tfi";
 import { FaUserCircle } from "react-icons/fa";
+import { BsFillPostageFill } from "react-icons/bs";
 
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -22,18 +23,18 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
   const menu = useMenu();
   return (
     <div className="fixed w-full bg-yellow-400 flex flex-row items-center justify-center">
-      <div className="w-full max-w-[1200px] flex flex-row items-center justify-between">
+      <div className="w-full max-w-[1000px] flex flex-row items-center justify-between">
         <div
           className="flex flex-row items-center justify-center gap-3 cursor-pointer"
           onClick={() => {
             router.push("/");
           }}
         >
-          <TfiAndroid size={24} />
-          <h2>Procore</h2>
+          <BsFillPostageFill size={24} />
+          <h2>Displate</h2>
         </div>
 
-        <div className="flex flex-row items-center gap-2 p-5">
+        <div className="flex flex-row items-center gap-2 py-5">
           <div className="flex flex-col justify-end items-end ">
             <div className="font-semibold text-black">
               {currentUser?.user.name}

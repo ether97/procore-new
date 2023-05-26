@@ -9,7 +9,7 @@ interface ModalStore {
 
 const useModal = create<ModalStore>((set) => ({
   title: "",
-  isOpen: true,
+  isOpen: false,
   onClose: () => set({ isOpen: false }),
   onOpen: (title) => set({ title: title, isOpen: true }),
 }));

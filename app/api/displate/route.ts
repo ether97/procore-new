@@ -6,6 +6,9 @@ import getCurrentUser from "@/app/actions/getCurrentUser";
 
 import { getPrice } from "@/app/utils/getPrice";
 
+import displates from "../../json/data.json";
+import { cache } from "react";
+
 export async function POST(request: Request) {
   const currentUser = await getCurrentUser();
 
@@ -42,25 +45,30 @@ export async function POST(request: Request) {
     },
   });
 
+  const userUpdate = await prisma.user.update({
+    where: {
+      id: currentUser.id,
+    },
+    data: {
+      favoriteIds: {
+        push: displate.id,
+      },
+    },
+  });
+
   // await prisma.displateInfo.createMany({
-  //   data: [
-  //     {
-  //       title: "Rex",
-  //       img: "StarWars2",
-  //       category: "Star Wars",
-  //     },
-  //     {
-  //       title: "Darth Vader",
-  //       img: "StarWars3",
-  //       category: "Star Wars",
-  //     },
-  //     {
-  //       title: "Darth Vader Black and White",
-  //       img: "StarWars4",
-  //       category: "Star Wars",
-  //     },
-  //   ],
+  //   data: displates,
   // });
 
-  return NextResponse.json(displate);
+  return NextResponse.json({});
 }
+
+export const GET = cache(async (request: Request) => {
+  const currentUser = getCurrentUser();
+
+  console.log(request);
+
+  const displates = await prisma.displateInfo.findMany();
+
+  return NextResponse.json(displates);
+});

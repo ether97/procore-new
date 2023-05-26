@@ -3,6 +3,13 @@
 import useModal from "../hooks/useModal";
 import { IoMdClose } from "react-icons/io";
 
+import Image from "next/image";
+
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { DisplateInfo } from "@prisma/client";
+import { toast } from "react-hot-toast";
+
 interface ModalProps {
   title: string;
   subtitle: string;
@@ -10,11 +17,53 @@ interface ModalProps {
 }
 
 const Modal: React.FC<ModalProps> = ({ title, subtitle, isOpen }) => {
+  const [data, setData] = useState<DisplateInfo[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const modal = useModal();
 
-  if (!isOpen) {
-    return null;
+  useEffect(() => {
+    async function getDisplates() {
+      setIsLoading(true);
+      await axios
+        .get<DisplateInfo[]>(`/api/displate/${title}`)
+        .then((res) => {
+          setData(res.data);
+          console.log("fetched again!");
+        })
+        .catch(() => {
+          toast.error("something happened!");
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    }
+
+    if (isOpen) {
+      getDisplates();
+    }
+  }, [title, isOpen]);
+
+  let content = [];
+
+  if (isLoading) {
+    content.push(<div>Loading...</div>);
+  } else {
+    {
+      data.map((displate) => {
+        content.push(
+          <Image
+            height={300}
+            width={250}
+            alt={displate.title}
+            src={`/images/${displate.category}/${displate.img}.jpg`}
+            style={{ objectFit: "cover" }}
+          />
+        );
+      });
+    }
   }
+
+  if (!isOpen) return null;
 
   return (
     <div
@@ -97,6 +146,7 @@ const Modal: React.FC<ModalProps> = ({ title, subtitle, isOpen }) => {
                 <div className="text-zinc-400 text-sm">{subtitle}</div>
               </div>
             </div>
+            <div className="grid grid-cols-4 gap-2 p-5">{content}</div>
           </div>
         </div>
       </div>

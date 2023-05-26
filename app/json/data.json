@@ -1,0 +1,122 @@
+[
+  {
+    "title": "Avengers Infinity War",
+    "img": "Marvel1",
+    "category": "Marvel"
+  },
+  {
+    "title": "Amazing Spider-Man",
+    "img": "Marvel2",
+    "category": "Marvel"
+  },
+  {
+    "title": "Guardians of the Galaxy",
+    "img": "Marvel3",
+    "category": "Marvel"
+  },
+  {
+    "title": "Avengers Endgame",
+    "img": "Marvel4",
+    "category": "Marvel"
+  },
+  {
+    "title": "Dark Knight",
+    "img": "Batman1",
+    "category": "Batman"
+  },
+  {
+    "title": "Batman Begins",
+    "img": "Batman2",
+    "category": "Batman"
+  },
+  {
+    "title": "Artistic Batman",
+    "img": "Batman3",
+    "category": "Batman"
+  },
+  {
+    "title": "Batman Begins",
+    "img": "Batman4",
+    "category": "Batman"
+  },
+  {
+    "title": "Rock Shattering",
+    "img": "Superman1",
+    "category": "Superman"
+  },
+  {
+    "title": "Superman Begins",
+    "img": "Superman2",
+    "category": "Superman"
+  },
+  {
+    "title": "Superman Black and White",
+    "img": "Superman3",
+    "category": "Superman"
+  },
+  {
+    "title": "Man of Steel",
+    "img": "Superman4",
+    "category": "Superman"
+  },
+  {
+    "title": "Legend of Zelda",
+    "img": "Gaming1",
+    "category": "Gaming"
+  },
+  {
+    "title": "Ghost of Tsushima",
+    "img": "Gaming2",
+    "category": "Gaming"
+  },
+  {
+    "title": "Mario",
+    "img": "Gaming3",
+    "category": "Gaming"
+  },
+  {
+    "title": "Titanfall",
+    "img": "Gaming4",
+    "category": "Gaming"
+  },
+  {
+    "title": "Legend of Zelda",
+    "img": "Gaming1",
+    "category": "Gaming"
+  },
+  {
+    "title": "Ghost of Tsushima",
+    "img": "Gaming2",
+    "category": "Gaming"
+  },
+  {
+    "title": "Mario",
+    "img": "Gaming3",
+    "category": "Gaming"
+  },
+  {
+    "title": "Titanfall",
+    "img": "Gaming4",
+    "category": "Gaming"
+  },
+  {
+    "title": "Mandalorian key art",
+    "img": "Mandelorian1",
+    "category": "Mandelorian"
+  },
+  {
+    "title": "Mandalorian Graffitti Helmet",
+    "img": "Mandelorian2",
+    "category": "Mandelorian"
+  },
+  {
+    "title": "Mandelorian and Grogu",
+    "img": "Mandelorian3",
+    "category": "Mandelorian"
+  },
+  {
+    "title": "Mandelorian Fate",
+    "img": "Mandelorian4",
+    "category": "Mandelorian"
+  }
+]

@@ -16,3 +16,10 @@ export enum ESize {
   L = "LARGE",
   XL = "EXTRA_LARGE",
 }
+
+export interface IDisplateInfo {
+  img: string | null;
+  id: string | null;
+  title: string | null;
+  category: string | null;
+}

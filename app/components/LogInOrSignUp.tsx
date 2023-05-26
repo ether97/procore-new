@@ -4,6 +4,7 @@ import Button from "./Button";
 import { BsPencilSquare } from "react-icons/bs";
 import { AiFillHome } from "react-icons/ai";
 import { useRouter } from "next/navigation";
+import { BsArrowBarRight } from "react-icons/bs";
 
 const LogInOrSignUp = () => {
   const router = useRouter();
@@ -13,16 +14,23 @@ const LogInOrSignUp = () => {
         label="Register"
         icon={BsPencilSquare}
         onClick={() => {
-          router.push("/register");
+          router.push("pages/register");
         }}
       />
       <Button
         label="Log in"
         icon={AiFillHome}
         onClick={() => {
-          router.push("/login");
+          router.push("pages/login");
         }}
       />
+      <div
+        className="text-zinc-400 text-sm font-semi gap-2 flex items-center justify-center cursor-pointer"
+        onClick={() => router.push("pages/displates")}
+      >
+        Browse Displates
+        <BsArrowBarRight size={24} color="black" />
+      </div>
     </div>
   );
 };

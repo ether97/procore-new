@@ -6,9 +6,8 @@ import Navbar from "./components/Navbar/Navbar";
 import Toast from "./components/Toast";
 import Head from "next/head";
 import ClientOnly from "./components/ClientOnly";
-import DisplateModal from "./components/DisplateModal";
 
-import ReduxProvider from "./components/Providers";
+import TestModal from "./components/TestModal";
 
 const font = Nunito({
   subsets: ["latin"],
@@ -26,21 +25,19 @@ export default async function RootLayout({
 }) {
   const currentUser = await getCurrentUser();
   return (
-    <html lang="en">
+    <html lang="en" data-theme="light">
       <Head>
         <link rel="shortcut icon" href="" />
       </Head>
       <body className={font.className}>
-        <ReduxProvider>
-          <ClientOnly>
-            <Navbar currentUser={currentUser} />
-            <Toast />
-            <DisplateModal />
-          </ClientOnly>
-          <div className="flex flex-row items-center justify-center h-full w-full ">
-            {children}
-          </div>
-        </ReduxProvider>
+        <ClientOnly>
+          <Navbar currentUser={currentUser} />
+          <Toast />
+          <TestModal />
+        </ClientOnly>
+        <div className="flex flex-row items-center justify-center h-full w-full ">
+          {children}
+        </div>
       </body>
     </html>
   );

@@ -31,6 +31,9 @@ const LogInOrSignUp = () => {
         Browse Displates
         <BsArrowBarRight size={24} color="black" />
       </div>
+      <label htmlFor="my-modal" className="btn">
+        open modal
+      </label>
     </div>
   );
 };

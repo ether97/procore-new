@@ -1,14 +1,23 @@
 "use client";
 
+import {
+  setCurrentDisplate,
+  setDisplates,
+} from "@/app/redux/features/displate/displateSlice";
+import { RootState } from "@/app/redux/store";
 import { DisplateInfo } from "@prisma/client";
 import axios from "axios";
 import Image from "next/image";
 
 import { useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
 
 const DisplateDisplay = () => {
   const [isLoading, setIsLoading] = useState(false);
+
+  const displates = useSelector((state: RootState) => state.displate.displates);
+  const dispatch = useDispatch();
 
   const [data, setData] = useState<DisplateInfo[]>([]);
 
@@ -20,7 +29,7 @@ const DisplateDisplay = () => {
         .get<DisplateInfo[]>("/api/displate")
         .then((res) => {
           setIsLoading(false);
-          setData(res.data);
+          dispatch(setDisplates(res.data));
           toast.success("get items!");
           console.log(res.data);
         })
@@ -39,17 +48,20 @@ const DisplateDisplay = () => {
   if (isLoading) {
     content.push(<div>Loading...</div>);
   } else if (data) {
-    data.map((displate) => {
+    displates.map((displate) => {
       content.push(
-        <div className="flex flex-row items-center justify-center">
-          <Image
-            height={300}
-            width={250}
-            className="rounded-md hover:scale-105 duration-300 transition cursor-pointer "
-            alt={displate.title}
-            src={`/images/${displate.category}/${displate.img}.jpg`}
-            style={{ objectFit: "cover" }}
-          />
+        <div className="flex flex-row items-center justify-center -z-50">
+          <label htmlFor="my-modal">
+            <Image
+              height={300}
+              width={250}
+              className="rounded-md hover:scale-105 duration-300 transition cursor-pointer "
+              alt={displate.title || ""}
+              src={`/images/${displate.category}/${displate.img}.jpg`}
+              style={{ objectFit: "cover" }}
+              onClick={() => dispatch(setCurrentDisplate(displate))}
+            />
+          </label>
         </div>
       );
     });

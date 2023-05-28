@@ -1,7 +1,8 @@
 "use client";
 
+import { setDisplateCategories } from "@/app/redux/features/displate/displateSlice";
 import Image from "next/image";
-import useModal from "../../hooks/useModal";
+import { useDispatch } from "react-redux";
 
 export const icons = [
   "Batman",
@@ -13,22 +14,21 @@ export const icons = [
 ];
 
 const DisplateSelection = () => {
-  const modal = useModal();
+  const dispatch = useDispatch();
   return (
     <div className="z-100 w-2/3 shadow-lg flex items-center justify-center p-4">
       <div className="w-full lg:max-w-[1200px] xl:max-w-[1500px] md:max-w-[900px] sm:max-w-[700px] flex items-center justify-between">
         {icons.map((icon) => (
-          <Image
-            key={icon}
-            className="cursor-pointer hover:bg-white rounded-full p-[5px]"
-            height="40"
-            width="40"
-            alt={icon}
-            src={`/images/${icon}.png`}
-            onClick={() => {
-              modal.onOpen(icon);
-            }}
-          />
+          <label htmlFor="category-modal">
+            <Image
+              key={icon}
+              className="cursor-pointer hover:bg-white rounded-full p-[5px]"
+              height="40"
+              width="40"
+              alt={icon}
+              src={`/images/${icon}.png`}
+            />
+          </label>
         ))}
       </div>
     </div>

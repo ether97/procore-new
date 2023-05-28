@@ -1,14 +1,28 @@
 "use client";
 
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { IDisplateInfo } from "@/app/types/types";
 
+import axios from "axios";
+
 import type { PayloadAction } from "@reduxjs/toolkit";
+
+const fetchDisplates = createAsyncThunk(
+  "getDisplates",
+  async (_, displateAPI) => {
+    const response = await axios.get("api/displates");
+    if (response.status === 200) {
+      const displates = response.data;
+      return displates;
+    }
+  }
+);
 
 export interface DisplateState {
   displates: IDisplateInfo[];
   currentDisplate: IDisplateInfo;
   favoriteDisplates: IDisplateInfo[];
+  displateCategories: IDisplateInfo[];
 }
 
 const initialState: DisplateState = {
@@ -20,6 +34,7 @@ const initialState: DisplateState = {
     id: null,
   },
   favoriteDisplates: [],
+  displateCategories: [],
 };
 
 export const displateSlice = createSlice({
@@ -35,10 +50,22 @@ export const displateSlice = createSlice({
     setFavoriteDisplates: (state, action: PayloadAction<IDisplateInfo[]>) => {
       state.favoriteDisplates = action.payload;
     },
+    setDisplateCategories: (state, action: PayloadAction<IDisplateInfo[]>) => {
+      state.displateCategories = action.payload;
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchDisplates.fulfilled, (state, action) => {
+      state.displates = action.payload;
+    });
   },
 });
 
-export const { setCurrentDisplate, setDisplates, setFavoriteDisplates } =
-  displateSlice.actions;
+export const {
+  setCurrentDisplate,
+  setDisplates,
+  setFavoriteDisplates,
+  setDisplateCategories,
+} = displateSlice.actions;
 
 export default displateSlice.reducer;

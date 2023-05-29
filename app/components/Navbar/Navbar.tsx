@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import useMenu from "@/app/hooks/userMenu";
 import UserMenu from "../UserMenu";
 import DisplateSelection from "@/app/pages/displates/DisplateSelection";
+import Avatar from "../Avatar";
 
 interface NavbarProps {
   currentUser?: any | null | undefined;
@@ -27,15 +28,19 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
       <div
         className="        max-w-[2520px]
         w-full
-        mx-auto
-        xl:px-20 
-        md:px-10
-        sm:px-2
-        px-4
+
         flex flex-col items-center justify-center
         "
       >
-        <div className="w-full flex flex-row items-center justify-between">
+        <div
+          className="w-full flex flex-row items-center justify-between
+                xl:px-10
+        lg:px-5 
+        md:px-5
+        sm:px-5
+        px-4
+        "
+        >
           <div
             className="flex flex-row items-center justify-center gap-3 cursor-pointer"
             onClick={() => {
@@ -55,20 +60,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
                 {currentUser?.email}
               </div>
             </div>
-            {currentUser?.image ? (
-              <div className="relative" onClick={() => menu.onToggle()}>
-                <Image
-                  className="rounded-full cursor-pointer peer"
-                  src={currentUser?.image}
-                  alt="user avatar"
-                  width="35"
-                  height="35"
-                />
-                {menu.isOpen && <UserMenu />}
-              </div>
-            ) : (
-              <FaUserCircle size={35} />
-            )}
+            <UserMenu currentUser={currentUser} />
           </div>
         </div>
         <DisplateSelection />

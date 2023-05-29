@@ -1,41 +1,49 @@
 "use client";
 
-import Button from "./Button";
+import SocialButton from "./SocialButton";
 
-import { AiFillGithub, AiFillFacebook, AiFillInstagram } from "react-icons/ai";
+import {
+  AiOutlineGithub,
+  AiFillFacebook,
+  AiFillInstagram,
+} from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 
 import { signIn } from "next-auth/react";
-import Register from "./Register";
 
 export const socials = [
   {
     label: "Github",
-    icon: AiFillGithub,
+    icon: AiOutlineGithub,
+    color: "white",
   },
   {
     label: "Google",
     icon: FcGoogle,
+    color: "",
   },
   {
     label: "Facebook",
     icon: AiFillFacebook,
+    color: "white",
   },
   {
     label: "Instagram",
     icon: AiFillInstagram,
+    color: "white",
   },
 ];
 
 const Socials = () => {
   return (
-    <div className="flex flex-col justify-center items-center gap-5 p-10 w-1/2">
+    <div className="flex flex-row justify-center items-center gap-3">
       {socials.map((social) => (
-        <Button
+        <SocialButton
           key={social.label}
           label={social.label}
           icon={social.icon}
           onClick={() => signIn(`github`)}
+          color={social.color}
         />
       ))}
     </div>

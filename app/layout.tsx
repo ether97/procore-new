@@ -40,7 +40,7 @@ export default async function RootLayout({
             <IndividualModal />
             <CategoryModal />
           </ClientOnly>
-          <div className="flex flex-row items-center justify-center h-full w-full pt-[200px] ">
+          <div className="flex flex-row items-center justify-center h-full w-full  ">
             {children}
           </div>
         </ReduxProvider>

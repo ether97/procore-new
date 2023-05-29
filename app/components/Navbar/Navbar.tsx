@@ -10,7 +10,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { BsFillPostageFill } from "react-icons/bs";
 
 import { signOut } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import useMenu from "@/app/hooks/userMenu";
 import UserMenu from "../UserMenu";
 import DisplateSelection from "@/app/pages/displates/DisplateSelection";
@@ -22,6 +22,7 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
   const router = useRouter();
+  const pathname = usePathname();
   const menu = useMenu();
   return (
     <div className="z-100 fixed w-full bg-gradient-to-b from-yellow-400 flex flex-col items-center justify-center">
@@ -63,7 +64,9 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
             <UserMenu currentUser={currentUser} />
           </div>
         </div>
-        <DisplateSelection />
+        {pathname !== "/pages/login" &&
+          pathname !== "/pages/register" &&
+          pathname !== "/" && <DisplateSelection />}
       </div>
     </div>
   );

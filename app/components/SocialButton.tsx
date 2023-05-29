@@ -17,7 +17,7 @@ const SocialButton: React.FC<SocialButtonProps> = ({
 }) => {
   return (
     <button
-      className={`bg-gray-700 rounded-full p-2 text-${color} hover:bg-white transition duration-300 ${
+      className={`bg-gray-700 rounded-full p-2 text-white hover:bg-white transition duration-300 ${
         label !== "Google" ? "hover:text-black" : ""
       }`}
       onClick={onClick}

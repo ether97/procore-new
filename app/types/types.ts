@@ -4,17 +4,17 @@ export enum EFinish {
 }
 
 export enum EFrame {
-  None = "NONE",
-  Natural_Wood = "NATURAL_WOOD",
-  Black_Wood = "BLACK_WOOD",
-  White_Wood = "WHITE_WOOD",
-  Graphite = "GRAPHITE",
+  None = "None",
+  Natural_Wood = "Natural Wood",
+  Black_Wood = "Black Wood",
+  White_Wood = "White Wood",
+  Graphite = "Graphite",
 }
 
 export enum ESize {
-  M = "MEDIUM",
-  L = "LARGE",
-  XL = "EXTRA_LARGE",
+  Medium = "Medium",
+  Large = "Large",
+  Extra_Large = "Extra Large",
 }
 
 export interface IDisplateInfo {

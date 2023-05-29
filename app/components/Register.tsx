@@ -8,6 +8,7 @@ import useRegister from "../hooks/useRegister";
 import { toast } from "react-hot-toast";
 import Input from "./Input";
 import Button from "./Button";
+import Socials from "./Socials";
 
 const Register = () => {
   const registerInput = useRegister();
@@ -71,7 +72,10 @@ const Register = () => {
         errors={errors}
         placeholder=" "
       />
-      <Button label="Register" onClick={handleSubmit(onSubmit)} />
+      <div className="flex flex-row justify-between items-center">
+        <Button label="Register" onClick={handleSubmit(onSubmit)} />
+        <Socials />
+      </div>
     </div>
   );
 };

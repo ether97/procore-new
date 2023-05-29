@@ -6,22 +6,34 @@ import { AiFillHome } from "react-icons/ai";
 import { useRouter } from "next/navigation";
 import { BsArrowBarRight } from "react-icons/bs";
 
+import { useEffect } from "react";
+
+import { fetchDisplates } from "../redux/features/displate/displateSlice";
+import { AppDispatch } from "../redux/store";
+
+import { useDispatch } from "react-redux";
+
 const LogInOrSignUp = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
+
+  useEffect(() => {
+    dispatch(fetchDisplates());
+  }, []);
   return (
     <div className="w-[600px] border-2 rounded-md flex flex-col items-center justify-center gap-4 p-4">
-      <Button
-        label="Register"
-        icon={BsPencilSquare}
-        onClick={() => {
-          router.push("pages/register");
-        }}
-      />
       <Button
         label="Log in"
         icon={AiFillHome}
         onClick={() => {
           router.push("pages/login");
+        }}
+      />
+      <Button
+        label="Register"
+        icon={BsPencilSquare}
+        onClick={() => {
+          router.push("pages/register");
         }}
       />
       <div

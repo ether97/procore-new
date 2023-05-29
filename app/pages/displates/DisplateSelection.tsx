@@ -1,6 +1,6 @@
 "use client";
 
-import { setDisplateCategories } from "@/app/redux/features/displate/displateSlice";
+import { setCategory } from "@/app/redux/features/displate/displateSlice";
 import Image from "next/image";
 import { useDispatch } from "react-redux";
 
@@ -16,7 +16,7 @@ export const icons = [
 const DisplateSelection = () => {
   const dispatch = useDispatch();
   return (
-    <div className="z-100 w-2/3 shadow-lg flex items-center justify-center p-4">
+    <div className="z-100 w-2/3 shadow-lg flex items-center justify-center p-4 ">
       <div className="w-full lg:max-w-[1200px] xl:max-w-[1500px] md:max-w-[900px] sm:max-w-[700px] flex items-center justify-between">
         {icons.map((icon) => (
           <label htmlFor="category-modal">
@@ -27,6 +27,7 @@ const DisplateSelection = () => {
               width="40"
               alt={icon}
               src={`/images/${icon}.png`}
+              onClick={() => dispatch(setCategory(icon))}
             />
           </label>
         ))}

@@ -7,22 +7,20 @@ import axios from "axios";
 
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-const fetchDisplates = createAsyncThunk(
-  "getDisplates",
-  async (_, displateAPI) => {
-    const response = await axios.get("api/displates");
-    if (response.status === 200) {
-      const displates = response.data;
-      return displates;
-    }
+export const fetchDisplates = createAsyncThunk("getDisplates", async () => {
+  const response = await axios.get("http://localhost:3000/api/displate");
+  if (response.status === 200) {
+    const displates = response.data;
+    return displates;
   }
-);
+});
 
 export interface DisplateState {
   displates: IDisplateInfo[];
   currentDisplate: IDisplateInfo;
   favoriteDisplates: IDisplateInfo[];
   displateCategories: IDisplateInfo[];
+  category: string | null;
 }
 
 const initialState: DisplateState = {
@@ -35,6 +33,7 @@ const initialState: DisplateState = {
   },
   favoriteDisplates: [],
   displateCategories: [],
+  category: null,
 };
 
 export const displateSlice = createSlice({
@@ -50,8 +49,11 @@ export const displateSlice = createSlice({
     setFavoriteDisplates: (state, action: PayloadAction<IDisplateInfo[]>) => {
       state.favoriteDisplates = action.payload;
     },
-    setDisplateCategories: (state, action: PayloadAction<IDisplateInfo[]>) => {
-      state.displateCategories = action.payload;
+    setCategory: (state, action: PayloadAction<string>) => {
+      state.category = action.payload;
+      state.displateCategories = state.displates.filter(
+        (displate) => displate.category === state.category
+      );
     },
   },
   extraReducers: (builder) => {
@@ -65,7 +67,7 @@ export const {
   setCurrentDisplate,
   setDisplates,
   setFavoriteDisplates,
-  setDisplateCategories,
+  setCategory,
 } = displateSlice.actions;
 
 export default displateSlice.reducer;

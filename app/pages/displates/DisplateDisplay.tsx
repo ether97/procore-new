@@ -1,61 +1,32 @@
 "use client";
 
-import {
-  setCurrentDisplate,
-  setDisplates,
-} from "@/app/redux/features/displate/displateSlice";
+import { setCurrentDisplate } from "@/app/redux/features/displate/displateSlice";
 import { RootState } from "@/app/redux/store";
-import { DisplateInfo } from "@prisma/client";
-import axios from "axios";
 import Image from "next/image";
 
-import { useState, useEffect } from "react";
-import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 
+import { AppDispatch } from "@/app/redux/store";
+
 const DisplateDisplay = () => {
-  const [isLoading, setIsLoading] = useState(false);
-
+  const dispatch = useDispatch<AppDispatch>();
   const displates = useSelector((state: RootState) => state.displate.displates);
-  const dispatch = useDispatch();
-
-  const [data, setData] = useState<DisplateInfo[]>([]);
-
-  useEffect(() => {
-    async function getDisplates() {
-      setIsLoading(true);
-
-      await axios
-        .get<DisplateInfo[]>("/api/displate")
-        .then((res) => {
-          setIsLoading(false);
-          dispatch(setDisplates(res.data));
-          toast.success("get items!");
-          console.log(res.data);
-        })
-        .catch((err) => {
-          toast.error("something happened.");
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-    }
-
-    getDisplates();
-  }, []);
 
   let content = [];
-  if (isLoading) {
+  if (displates.length === 0) {
     content.push(<div>Loading...</div>);
-  } else if (data) {
+  } else {
     displates.map((displate) => {
       content.push(
-        <div className="flex flex-row items-center justify-center -z-50">
+        <div
+          className="flex flex-row items-center justify-center -z-50"
+          key={displate.id}
+        >
           <label htmlFor="my-modal">
             <Image
               height={300}
               width={250}
-              className="rounded-md hover:scale-105 duration-300 transition cursor-pointer "
+              className="rounded-md hover:scale-105 duration-300 transition cursor-pointer -z-50"
               alt={displate.title || ""}
               src={`/images/${displate.category}/${displate.img}.jpg`}
               style={{ objectFit: "cover" }}

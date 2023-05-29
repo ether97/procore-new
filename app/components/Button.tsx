@@ -16,7 +16,7 @@ const Button: React.FC<ButtonProps> = ({
   small,
 }) => {
   return (
-    <button className="btn gap-5 w-[200px]" onClick={onClick}>
+    <button className="btn gap-5 w-full" onClick={onClick}>
       {Icon && <Icon size={24} />}
       {label}
     </button>

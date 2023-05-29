@@ -27,7 +27,7 @@ const Register = () => {
   };
 
   return (
-    <div className="flex flex-col w-1/2 gap-5 md:mt-[200px] sm:mt-[500px]">
+    <div className="flex flex-col w-1/2 gap-5">
       <Input
         label="Email"
         id="email"
@@ -47,7 +47,7 @@ const Register = () => {
         errors={errors}
         placeholder=" "
       />
-      <div className="flex flex-row justify-between items-center">
+      <div className="flex justify-between items-center ">
         <Button label="Login" onClick={handleSubmit(onSubmit)} />
         <Socials />
       </div>

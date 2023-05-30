@@ -1,6 +1,6 @@
 export enum EFinish {
-  Matte = "MATTE",
-  Gloss = "GLOSS",
+  Matte = "Matte",
+  Gloss = "Gloss",
 }
 
 export enum EFrame {
@@ -23,3 +23,10 @@ export interface IDisplateInfo {
   title: string | null;
   category: string | null;
 }
+
+export type Specs = {
+  size: number;
+  frame: string;
+  finish: string;
+  price: number;
+};

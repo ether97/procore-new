@@ -1,10 +1,14 @@
 "use client";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
+
+import { useState } from "react";
 
 import Image from "next/image";
 import { IoMdCloseCircleOutline } from "react-icons/io";
+import { BsFillCartPlusFill } from "react-icons/bs";
+import { AiFillHeart } from "react-icons/ai";
 import { EFrame, ESize } from "../types/types";
 
 const frames = Object.values(EFrame) as (keyof typeof EFrame)[];
@@ -18,11 +22,18 @@ type FormInputs = {
 };
 
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { setSpecs } from "../redux/features/displate/displateSlice";
 
-const TestModal = () => {
+const IndividualModal = () => {
+  const dispatch = useDispatch();
+  const [size, setSize] = useState<any>(250);
   const { register, getValues } = useForm<FormInputs>();
-
-  const size = getValues("size");
+  const currentSize = useSelector(
+    (state: RootState) => state.displate.specs.size
+  );
+  const currentPrice = useSelector(
+    (state: RootState) => state.displate.specs.price
+  );
   const currentDisplate = useSelector(
     (state: RootState) => state.displate.currentDisplate
   );
@@ -30,55 +41,97 @@ const TestModal = () => {
     <>
       <input type="checkbox" id="my-modal" className="modal-toggle" />
       <div className="modal p-0">
-        <div className="modal-box relative p-[20px] w-auto">
+        <div className="modal-box relative p-[20px] w-[800px] h-[600px]">
           <div className="font-bold text-xl text-center">
             {currentDisplate.category}
           </div>
-          <p className="py-4 text-center text-zinc-400">
+          <p className="pb-3 text-center text-zinc-400">
             {currentDisplate.title}
           </p>
-          <div className="modal-action absolute top-[0px] right-[30px]">
+          <div className="modal-action absolute top-[0px] right-[24px]">
             <label htmlFor="my-modal">
               <IoMdCloseCircleOutline
                 size={24}
-                className="hover:scale-110 transition duration-200 hover:text-rose-400 cursor-pointer"
+                className="hover:scale-125 transition text-zinc-400 duration-200 hover:text-rose-600 cursor-pointer"
               />
             </label>
           </div>
-          <div className="flex flex-row items-start gap-5">
-            <Image
-              height={size | 300}
-              width={250}
-              className="rounded-md "
-              alt={currentDisplate.title || ""}
-              src={`/images/${currentDisplate.category}/${currentDisplate.img}.jpg`}
-              style={{ objectFit: "cover" }}
-            />
-            <div className="flex flex-row items-start">
-              <div className="flex flex-col items-start">
-                <h2 className="mx-auto text-md font-semibold">Frame</h2>
-                {frames.map((frame) => (
-                  <div className="form-control">
-                    <label className="label cursor-pointer w-[200px] flex justify-between">
-                      <span className="label-text text-zinc-400">{frame}</span>
-                      <input
-                        type="radio"
-                        name="radio-10"
-                        className={`radio checked:bg-red-500`}
-                        checked
-                      />
-                    </label>
-                  </div>
-                ))}
+          <div className="modal-action absolute top-[0px] left-[24px]">
+            <label htmlFor="my-modal">
+              <AiFillHeart
+                size={24}
+                className="hover:scale-125 transition text-rose-600 duration-200 cursor-pointer"
+              />
+            </label>
+          </div>
+          <div className="flex flex-row items-start gap-7">
+            <div className="w-[250px]">
+              <Image
+                height={currentSize}
+                width={currentSize}
+                className="rounded-md"
+                alt={currentDisplate.title || ""}
+                src={`/images/${currentDisplate.category}/${currentDisplate.img}.jpg`}
+                style={{ objectFit: "cover" }}
+              />
+            </div>
+            <div className="flex flex-col items-start w-[180px]">
+              <h2 className="mx-auto text-md font-bold">Frame</h2>
+              {frames.map((frame) => (
+                <div className="form-control w-full">
+                  <label className="label cursor-pointer w-full flex justify-between">
+                    <span className="label-text text-zinc-600">{frame}</span>
+                    <input
+                      type="radio"
+                      name={frame}
+                      className={`radio checked:bg-red-500`}
+                      checked
+                      onChange={(e) =>
+                        dispatch(setSpecs({ frame: e.target.name }))
+                      }
+                    />
+                  </label>
+                </div>
+              ))}
+              <div className="my-[10px] flex flex-col items-center justify-center w-full ">
+                <h2 className="mx-auto text-md font-bold">Size</h2>
+
                 <input
                   type="range"
-                  id="size"
-                  min="100"
-                  max="300"
-                  className="range"
+                  min="150"
+                  max="250"
+                  name="size"
+                  className="range my-[10px]"
+                  onChange={(e) =>
+                    dispatch(setSpecs({ size: e.target.valueAsNumber }))
+                  }
                 />
               </div>
+              <div className="flex flex-row w-full justify-between mb-[20px]">
+                <h2 className="text-md font-bold">Finish</h2>
+                <div className="flex flex-row items-center w-1/2 justify-between">
+                  <input
+                    type="radio"
+                    name="radio-10"
+                    className={`radio checked:bg-gradient-to-r from-white`}
+                    checked
+                    onChange={(e) => dispatch(setSpecs({ frame: "Gloss" }))}
+                  />
+                  <input
+                    type="radio"
+                    name="radio-10"
+                    className={`radio checked:black`}
+                    checked
+                    onChange={(e) => dispatch(setSpecs({ frame: "Matte" }))}
+                  />
+                </div>
+              </div>
             </div>
+          </div>
+          <div className="flex flex-row items-center justify-center mt-[10px]">
+            <button className="rounded-md w-[100px] border-black flex flex-row items-center justify-between">
+              Add to Cart ${currentPrice}
+            </button>
           </div>
         </div>
       </div>
@@ -86,4 +139,4 @@ const TestModal = () => {
   );
 };
 
-export default TestModal;
+export default IndividualModal;

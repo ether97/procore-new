@@ -30,3 +30,19 @@ export type Specs = {
   frame: string;
   finish: string;
 };
+
+export interface Cart {
+  userId: string;
+  displates: Displate[];
+  totalPrice: number;
+}
+
+export interface Displate {
+  id: string;
+  userId: string;
+  price: number;
+  size: number;
+  frame: string;
+  finish: string;
+  info: string;
+}

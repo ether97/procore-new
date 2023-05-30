@@ -19,7 +19,7 @@ const LogInOrSignUp = () => {
 
   useEffect(() => {
     dispatch(fetchDisplates());
-  }, []);
+  }, [dispatch]);
   return (
     <div className="w-[600px] border-2 rounded-md flex flex-col items-center justify-center gap-4 p-4">
       <Button

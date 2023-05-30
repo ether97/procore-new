@@ -18,34 +18,40 @@ export async function POST(request: Request) {
 
   const body = await request.json();
 
-  const darthVader = await prisma.displateInfo.findMany({
-    where: {
-      title: "Darth Vader",
-    },
-  });
-
-  const displateInfoId = darthVader[0].id;
-
-  // const { img, title, category } = body;
-
+  const { specs, title } = body;
+  const { price, frame, finish, size } = specs;
   Object.keys(body).forEach((value: any) => {
     if (!body[value]) {
       NextResponse.error();
     }
   });
 
-  const displate = await prisma.displate.create({
-    data: {
-      userId: currentUser.id,
-      finish: "GLOSS",
-      frame: "BLACK_WOOD",
-      size: "MEDIUM",
-      price: getPrice("MEDIUM", "GLOSS", "BLACK_WOOD"),
-      info: displateInfoId,
+  const displateInfo = await prisma.displateInfo.findFirst({
+    where: {
+      title: title,
     },
   });
 
-  const userUpdate = await prisma.user.update({
+  if (!displateInfo) {
+    throw new Error("title not found!");
+  }
+
+  const displate = await prisma.displate.create({
+    data: {
+      userId: currentUser.id,
+      finish: finish,
+      frame: frame,
+      size: size,
+      price: price,
+      info: displateInfo.id,
+    },
+  });
+
+  if (!displate) {
+    throw new Error("error creating displate!");
+  }
+
+  const userUpdated = await prisma.user.update({
     where: {
       id: currentUser.id,
     },
@@ -56,11 +62,15 @@ export async function POST(request: Request) {
     },
   });
 
+  if (!displate) {
+    throw new Error("error updating user!");
+  }
+
   // await prisma.displateInfo.createMany({
   //   data: displates,
   // });
 
-  return NextResponse.json({});
+  return NextResponse.json(userUpdated.favoriteIds);
 }
 
 export const GET = cache(async (request: Request) => {

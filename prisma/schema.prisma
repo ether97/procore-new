@@ -68,10 +68,10 @@ model Account {
 model Displate {
   id                 String @db.ObjectId @id @default(auto()) @map("_id")
   userId             String @db.ObjectId
-  finish             EFinish @default(MATTE)
-  frame              EFrame @default(NONE)
-  size               ESize @default(MEDIUM)
-  price              Int? @default(44)
+  finish             String
+  frame              String
+  size               Int
+  price              Int
   info               String @db.ObjectId
 
   user               User @relation(fields: [userId], references: [id], onDelete: Cascade)

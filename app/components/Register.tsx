@@ -8,6 +8,7 @@ import useRegister from "../hooks/useRegister";
 import { toast } from "react-hot-toast";
 import Input from "./Input";
 import Button from "./Button";
+import ImageUpload from "./ImageUpload";
 
 const Register = () => {
   const registerInput = useRegister();
@@ -71,6 +72,7 @@ const Register = () => {
         errors={errors}
         placeholder=" "
       />
+      <ImageUpload />
       <Button label="Register" onClick={handleSubmit(onSubmit)} />
     </div>
   );

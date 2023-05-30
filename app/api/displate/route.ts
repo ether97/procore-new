@@ -51,31 +51,31 @@ export async function POST(request: Request) {
     throw new Error("error creating displate!");
   }
 
-  const userUpdated = await prisma.user.update({
+  const upsertCart = await prisma.cart.upsert({
     where: {
-      id: currentUser.id,
+      email: currentUser.email,
     },
-    data: {
-      favoriteIds: {
+    update: {
+      displates: {
         push: displate.id,
       },
     },
+    create: {
+      email: currentUser.email,
+      userId: currentUser.id,
+      price: displate.price,
+      displates: [displate.id],
+    },
   });
-
-  if (!displate) {
-    throw new Error("error updating user!");
-  }
 
   // await prisma.displateInfo.createMany({
   //   data: displates,
   // });
 
-  return NextResponse.json(userUpdated.favoriteIds);
+  return NextResponse.json(upsertCart);
 }
 
 export const GET = cache(async (request: Request) => {
-  const currentUser = getCurrentUser();
-
   console.log(request);
 
   const displates = await prisma.displateInfo.findMany();

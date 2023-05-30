@@ -4,7 +4,7 @@ import DisplateSelection from "./DisplateSelection";
 
 const DisplatePage = () => {
   return (
-    <div className="w-full h-full flex items-center justify-center pt-[200px]">
+    <div className="w-full h-full flex items-center justify-center pt-[250px]">
       <DisplateDisplay />
     </div>
   );

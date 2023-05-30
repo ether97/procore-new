@@ -11,7 +11,6 @@ import IndividualModal from "./components/IndividualModal";
 import CategoryModal from "./components/CategoryModal";
 
 import ReduxProvider from "./components/Providers";
-import { store } from "./redux/store";
 
 const font = Nunito({
   subsets: ["latin"],
@@ -41,7 +40,7 @@ export default async function RootLayout({
             <IndividualModal />
             <CategoryModal />
           </ClientOnly>
-          <div className="flex flex-row items-center justify-center h-full w-full ">
+          <div className="flex flex-row items-center justify-center h-full w-full  ">
             {children}
           </div>
         </ReduxProvider>

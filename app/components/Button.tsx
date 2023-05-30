@@ -16,17 +16,8 @@ const Button: React.FC<ButtonProps> = ({
   small,
 }) => {
   return (
-    <button
-      onClick={onClick}
-      className={`py-5 px-10 flex flex-row 
-      hover:bg-black hover:text-white
-      transition
-      duration-300
-      items-center justify-center relative border-[1px] border-md cursor-pointer ${
-        small ? "max-w-[200px]" : "w-full"
-      }`}
-    >
-      {Icon && <Icon size={24} className="top-5 left-5 absolute" />}
+    <button className="btn gap-5 w-full" onClick={onClick}>
+      {Icon && <Icon size={24} />}
       {label}
     </button>
   );

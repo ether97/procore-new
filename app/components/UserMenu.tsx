@@ -2,8 +2,13 @@
 
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import Avatar from "./Avatar";
 
-const UserMenu = () => {
+interface UserMenuProps {
+  currentUser?: any | null | undefined;
+}
+
+const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   const router = useRouter();
 
   const userMenuItems = [
@@ -25,30 +30,23 @@ const UserMenu = () => {
     },
   ];
   return (
-    <div className="absolute bg-black top-[59px] z-150 right-[0px] rounded-bottom-md ">
-      {userMenuItems.map((item, index) => {
-        if (index === 0) {
-          return (
-            <div
-              key={item.label}
-              onClick={item.onClick}
-              className="z-100 py-4 px-8 flex flex-row items-center justify-start text-white transition duration-200 hover:bg-yellow-400 hover:text-black cursor-pointer bg-gradient-to-b from-yellow-400"
-            >
-              {item.label}
-            </div>
-          );
-        } else {
-          return (
-            <div
-              key={item.label}
-              onClick={item.onClick}
-              className="z-100 py-4 px-8 flex flex-row items-center justify-start text-white transition duration-200 hover:bg-yellow-400 hover:text-black cursor-pointer"
-            >
-              {item.label}
-            </div>
-          );
-        }
-      })}
+    <div className="dropdown dropdown-hover">
+      <label tabIndex={0} className="m-1">
+        <Avatar currentUser={currentUser} />
+      </label>
+      <ul
+        tabIndex={0}
+        className="dropdown-content menu p-2 shadow bg-transparent rounded-box w-[130px] absolute top-[70px] right-[0px]"
+      >
+        {userMenuItems.map((item) => (
+          <li
+            className="text-center hover:bg-gray-700 p-2 cursor-pointer transition duration-300 hover:text-white"
+            onClick={item.onClick}
+          >
+            {item.label}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

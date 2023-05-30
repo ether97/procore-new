@@ -10,10 +10,11 @@ import { FaUserCircle } from "react-icons/fa";
 import { BsFillPostageFill } from "react-icons/bs";
 
 import { signOut } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import useMenu from "@/app/hooks/userMenu";
 import UserMenu from "../UserMenu";
 import DisplateSelection from "@/app/pages/displates/DisplateSelection";
+import Avatar from "../Avatar";
 
 interface NavbarProps {
   currentUser?: any | null | undefined;
@@ -21,21 +22,26 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
   const router = useRouter();
+  const pathname = usePathname();
   const menu = useMenu();
   return (
     <div className="z-100 fixed w-full bg-gradient-to-b from-yellow-400 flex flex-col items-center justify-center">
       <div
         className="        max-w-[2520px]
         w-full
-        mx-auto
-        xl:px-20 
-        md:px-10
-        sm:px-2
-        px-4
+
         flex flex-col items-center justify-center
         "
       >
-        <div className="w-full flex flex-row items-center justify-between">
+        <div
+          className="w-full flex flex-row items-center justify-between
+                xl:px-10
+        lg:px-5 
+        md:px-5
+        sm:px-5
+        px-4
+        "
+        >
           <div
             className="flex flex-row items-center justify-center gap-3 cursor-pointer"
             onClick={() => {
@@ -55,23 +61,12 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
                 {currentUser?.email}
               </div>
             </div>
-            {currentUser?.image ? (
-              <div className="relative" onClick={() => menu.onToggle()}>
-                <Image
-                  className="rounded-full cursor-pointer peer"
-                  src={currentUser?.image}
-                  alt="user avatar"
-                  width="35"
-                  height="35"
-                />
-                {menu.isOpen && <UserMenu />}
-              </div>
-            ) : (
-              <FaUserCircle size={35} />
-            )}
+            <UserMenu currentUser={currentUser} />
           </div>
         </div>
-        <DisplateSelection />
+        {pathname !== "/pages/login" &&
+          pathname !== "/pages/register" &&
+          pathname !== "/" && <DisplateSelection />}
       </div>
     </div>
   );

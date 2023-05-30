@@ -6,6 +6,7 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import Input from "./Input";
 import Button from "./Button";
+import Socials from "./Socials";
 
 const Register = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -46,7 +47,10 @@ const Register = () => {
         errors={errors}
         placeholder=" "
       />
-      <Button label="Login" onClick={handleSubmit(onSubmit)} />
+      <div className="flex justify-between items-center ">
+        <Button label="Login" onClick={handleSubmit(onSubmit)} />
+        <Socials />
+      </div>
     </div>
   );
 };

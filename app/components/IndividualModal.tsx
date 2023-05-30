@@ -33,6 +33,7 @@ const TestModal = () => {
             src={`/images/${currentDisplate.category}/${currentDisplate.img}.jpg`}
             style={{ objectFit: "cover" }}
           />
+          <div className="flex flex-col"></div>
         </div>
       </div>
     </>

@@ -1,33 +1,16 @@
-export function getPrice(size = "MEDIUM", finish = "MATTE", frame = "NONE") {
-  if (finish === "MATTE") {
-    if (size === "MEDIUM") {
-      if (frame !== "NONE") {
-        return 69;
-      } else {
-        return 44;
-      }
-    } else if (size === "LARGE") {
-      if (frame !== "NONE") {
-        return 129;
-      } else {
-        return 89;
-      }
-    }
-  } else if (finish === "GLOSS") {
-    if (size === "MEDIUM") {
-      if (frame !== "NONE") {
-        return 78;
-      } else {
-        return 53;
-      }
-    } else if (size === "LARGE") {
-      if (frame !== "NONE") {
-        return 148;
-      } else {
-        return 108;
-      }
-    }
+import { Specs } from "../types/types";
+
+export function getPrice(obj: Specs): number {
+  let price = obj.size / 3;
+
+  console.log(obj.finish, obj.frame);
+  if (obj.finish !== "Matte") {
+    price = price + 30;
   }
 
-  return 149;
+  if (obj.frame !== "None") {
+    price += 25;
+  }
+
+  return Math.ceil(price);
 }

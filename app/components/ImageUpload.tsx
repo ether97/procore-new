@@ -11,16 +11,19 @@ const ImageUpload = () => {
     const fileType = file.type;
 
     console.log(file, filename, fileType);
-    const res = await fetch(
+    const res = await axios(
       `/api/upload?file=${filename}&fileType=${fileType}`
     );
-    const { url } = await res.json();
-    const upload = await fetch(url, {
-      method: "PUT",
-      body: file,
-      headers: { "Content-Type": fileType },
-    });
-    if (upload.ok) {
+    const { url } = await res.data;
+
+    const config = {
+      headers: {
+        "Content-Type": fileType,
+      },
+    };
+
+    const upload = await axios.put(url, file, config);
+    if (upload.status === 200) {
       console.log("Uploaded successfully!");
     } else {
       console.error("Upload failed.");

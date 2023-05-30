@@ -1,12 +1,15 @@
 import S3 from "aws-sdk/clients/s3";
 
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextResponse } from "next/server";
 
-export default async function handler(
-  request: NextApiRequest,
-  response: NextApiResponse
-) {
-  console.log(request.query);
+interface IParams {
+  filename: string;
+  fileType: string;
+}
+
+export async function GET(request: Request, { params }: { params: IParams }) {
+  const { filename, fileType } = params;
+
   const s3 = new S3({
     signatureVersion: "v4",
     region: "us-east-2",
@@ -16,12 +19,10 @@ export default async function handler(
 
   const preSignedUrl = await s3.getSignedUrl("putObject", {
     Bucket: process.env.BUCKET_NAME,
-    Key: request.query.file,
-    ContentType: request.query.fileType,
+    Key: filename,
+    ContentType: fileType,
     Expires: 5 * 60,
   });
 
-  response.status(200).json({
-    url: preSignedUrl,
-  });
+  return NextResponse.json({ preSignedUrl });
 }
